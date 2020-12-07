@@ -12,7 +12,7 @@
 """
 
 
-__version__ = "1.0.0"
+__version__ = ""
 
 # import ApiClient
 from slurpy_client.api_client import ApiClient

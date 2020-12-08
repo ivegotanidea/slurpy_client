@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Slurpy
 
@@ -36,7 +34,7 @@ setup(
     author_email="team@openapitools.org",
     url="https://github.com/ivegotanidea/slurpy_client",
     keywords=["OpenAPI", "OpenAPI-Generator", "Slurpy"],
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,

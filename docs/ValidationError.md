@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**loc** | **[str]** |  | 
+**loc** | **list[str]** |  | 
 **msg** | **str** |  | 
 **type** | **str** |  | 
 

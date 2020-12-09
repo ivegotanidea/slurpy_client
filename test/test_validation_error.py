@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     Slurpy
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import slurpy_client
-from slurpy_client.model.validation_error import ValidationError
-
+from slurpy_client.models.validation_error import ValidationError  # noqa: E501
+from slurpy_client.rest import ApiException
 
 class TestValidationError(unittest.TestCase):
     """ValidationError unit test stubs"""
@@ -24,11 +28,33 @@ class TestValidationError(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test ValidationError
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = slurpy_client.models.validation_error.ValidationError()  # noqa: E501
+        if include_optional :
+            return ValidationError(
+                loc = [
+                    '0'
+                    ], 
+                msg = '0', 
+                type = '0'
+            )
+        else :
+            return ValidationError(
+                loc = [
+                    '0'
+                    ],
+                msg = '0',
+                type = '0',
+        )
+
     def testValidationError(self):
         """Test ValidationError"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = ValidationError()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

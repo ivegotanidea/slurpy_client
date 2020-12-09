@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     Slurpy
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import slurpy_client
-from slurpy_client.model.validation_error import ValidationError
-globals()['ValidationError'] = ValidationError
-from slurpy_client.model.http_validation_error import HTTPValidationError
-
+from slurpy_client.models.http_validation_error import HTTPValidationError  # noqa: E501
+from slurpy_client.rest import ApiException
 
 class TestHTTPValidationError(unittest.TestCase):
     """HTTPValidationError unit test stubs"""
@@ -26,11 +28,31 @@ class TestHTTPValidationError(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test HTTPValidationError
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = slurpy_client.models.http_validation_error.HTTPValidationError()  # noqa: E501
+        if include_optional :
+            return HTTPValidationError(
+                detail = [
+                    slurpy_client.models.validation_error.ValidationError(
+                        loc = [
+                            '0'
+                            ], 
+                        msg = '0', 
+                        type = '0', )
+                    ]
+            )
+        else :
+            return HTTPValidationError(
+        )
+
     def testHTTPValidationError(self):
         """Test HTTPValidationError"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = HTTPValidationError()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     Slurpy
 
@@ -8,17 +10,20 @@
 """
 
 
+from __future__ import absolute_import
+
 import unittest
 
 import slurpy_client
 from slurpy_client.api.jobs_api import JobsApi  # noqa: E501
+from slurpy_client.rest import ApiException
 
 
 class TestJobsApi(unittest.TestCase):
     """JobsApi unit test stubs"""
 
     def setUp(self):
-        self.api = JobsApi()  # noqa: E501
+        self.api = slurpy_client.api.jobs_api.JobsApi()  # noqa: E501
 
     def tearDown(self):
         pass

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_job_result**
-> bool, date, datetime, dict, float, int, list, str, none_type get_job_result(job_id)
+> object get_job_result(job_id)
 
 Get Job Result
 
@@ -17,10 +17,10 @@ Get job status and result by its id
 ### Example
 
 ```python
+from __future__ import print_function
 import time
 import slurpy_client
-from slurpy_client.api import jobs_api
-from slurpy_client.model.http_validation_error import HTTPValidationError
+from slurpy_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -32,15 +32,14 @@ configuration = slurpy_client.Configuration(
 # Enter a context with an instance of the API client
 with slurpy_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = jobs_api.JobsApi(api_client)
-    job_id = "job_id_example" # str | 
+    api_instance = slurpy_client.JobsApi(api_client)
+    job_id = 'job_id_example' # str | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Get Job Result
         api_response = api_instance.get_job_result(job_id)
         pprint(api_response)
-    except slurpy_client.ApiException as e:
+    except ApiException as e:
         print("Exception when calling JobsApi->get_job_result: %s\n" % e)
 ```
 
@@ -48,11 +47,11 @@ with slurpy_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **job_id** | **str**|  |
+ **job_id** | **str**|  | 
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+**object**
 
 ### Authorization
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **get_email**
-> bool, date, datetime, dict, float, int, list, str, none_type get_email(email, password, folder, timeout)
+> object get_email(email, password, folder, timeout)
 
 Get Mail
 
@@ -19,10 +19,10 @@ Get email
 ### Example
 
 ```python
+from __future__ import print_function
 import time
 import slurpy_client
-from slurpy_client.api import email_api
-from slurpy_client.model.http_validation_error import HTTPValidationError
+from slurpy_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -34,18 +34,17 @@ configuration = slurpy_client.Configuration(
 # Enter a context with an instance of the API client
 with slurpy_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = email_api.EmailApi(api_client)
-    email = "email_example" # str | 
-    password = "password_example" # str | 
-    folder = "folder_example" # str | 
-    timeout = 1 # int | 
+    api_instance = slurpy_client.EmailApi(api_client)
+    email = 'email_example' # str | 
+password = 'password_example' # str | 
+folder = 'folder_example' # str | 
+timeout = 56 # int | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Get Mail
         api_response = api_instance.get_email(email, password, folder, timeout)
         pprint(api_response)
-    except slurpy_client.ApiException as e:
+    except ApiException as e:
         print("Exception when calling EmailApi->get_email: %s\n" % e)
 ```
 
@@ -53,14 +52,14 @@ with slurpy_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **email** | **str**|  |
- **password** | **str**|  |
- **folder** | **str**|  |
- **timeout** | **int**|  |
+ **email** | **str**|  | 
+ **password** | **str**|  | 
+ **folder** | **str**|  | 
+ **timeout** | **int**|  | 
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+**object**
 
 ### Authorization
 
@@ -80,7 +79,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_inbox_folders**
-> bool, date, datetime, dict, float, int, list, str, none_type get_inbox_folders(email, password)
+> object get_inbox_folders(email, password)
 
 Get Folders
 
@@ -89,10 +88,10 @@ Get inbox folders
 ### Example
 
 ```python
+from __future__ import print_function
 import time
 import slurpy_client
-from slurpy_client.api import email_api
-from slurpy_client.model.http_validation_error import HTTPValidationError
+from slurpy_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -104,16 +103,15 @@ configuration = slurpy_client.Configuration(
 # Enter a context with an instance of the API client
 with slurpy_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = email_api.EmailApi(api_client)
-    email = "email_example" # str | 
-    password = "password_example" # str | 
+    api_instance = slurpy_client.EmailApi(api_client)
+    email = 'email_example' # str | 
+password = 'password_example' # str | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Get Folders
         api_response = api_instance.get_inbox_folders(email, password)
         pprint(api_response)
-    except slurpy_client.ApiException as e:
+    except ApiException as e:
         print("Exception when calling EmailApi->get_inbox_folders: %s\n" % e)
 ```
 
@@ -121,12 +119,12 @@ with slurpy_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **email** | **str**|  |
- **password** | **str**|  |
+ **email** | **str**|  | 
+ **password** | **str**|  | 
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+**object**
 
 ### Authorization
 
@@ -146,7 +144,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_unseen**
-> bool, date, datetime, dict, float, int, list, str, none_type get_unseen(email, password, limit)
+> object get_unseen(email, password, limit)
 
 Get Unseen
 
@@ -155,10 +153,10 @@ Get unseen email
 ### Example
 
 ```python
+from __future__ import print_function
 import time
 import slurpy_client
-from slurpy_client.api import email_api
-from slurpy_client.model.http_validation_error import HTTPValidationError
+from slurpy_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -170,17 +168,16 @@ configuration = slurpy_client.Configuration(
 # Enter a context with an instance of the API client
 with slurpy_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = email_api.EmailApi(api_client)
-    email = "email_example" # str | 
-    password = "password_example" # str | 
-    limit = 1 # int | 
+    api_instance = slurpy_client.EmailApi(api_client)
+    email = 'email_example' # str | 
+password = 'password_example' # str | 
+limit = 56 # int | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Get Unseen
         api_response = api_instance.get_unseen(email, password, limit)
         pprint(api_response)
-    except slurpy_client.ApiException as e:
+    except ApiException as e:
         print("Exception when calling EmailApi->get_unseen: %s\n" % e)
 ```
 
@@ -188,13 +185,13 @@ with slurpy_client.ApiClient() as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **email** | **str**|  |
- **password** | **str**|  |
- **limit** | **int**|  |
+ **email** | **str**|  | 
+ **password** | **str**|  | 
+ **limit** | **int**|  | 
 
 ### Return type
 
-**bool, date, datetime, dict, float, int, list, str, none_type**
+**object**
 
 ### Authorization
 

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     Slurpy
 
@@ -8,20 +10,18 @@
 """
 
 
-import re  # noqa: F401
-import sys  # noqa: F401
+from __future__ import absolute_import
 
-from slurpy_client.api_client import ApiClient, Endpoint
-from slurpy_client.model_utils import (  # noqa: F401
-    check_allowed_values,
-    check_validations,
-    date,
-    datetime,
-    file_type,
-    none_type,
-    validate_and_convert_types
+import re  # noqa: F401
+
+# python 2 and python 3 compatibility library
+import six
+
+from slurpy_client.api_client import ApiClient
+from slurpy_client.exceptions import (  # noqa: F401
+    ApiTypeError,
+    ApiValueError
 )
-from slurpy_client.model.http_validation_error import HTTPValidationError
 
 
 class EmailApi(object):
@@ -36,413 +36,398 @@ class EmailApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-        def __get_email(
-            self,
-            email,
-            password,
-            folder,
-            timeout,
-            **kwargs
-        ):
-            """Get Mail  # noqa: E501
+    def get_email(self, **kwargs):  # noqa: E501
+        """Get Mail  # noqa: E501
 
-            Get email  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        Get email  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_email(email=email_value, password=password_value, folder=folder_value, timeout=timeout_value, async_req=True)
+        >>> result = thread.get()
 
-            >>> thread = api.get_email(email, password, folder, timeout, async_req=True)
-            >>> result = thread.get()
+        :param async_req bool: execute request asynchronously
+        :param str email: (required)
+        :param str password: (required)
+        :param str folder: (required)
+        :param int timeout: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_email_with_http_info(**kwargs)  # noqa: E501
 
-            Args:
-                email (str):
-                password (str):
-                folder (str):
-                timeout (int):
+    def get_email_with_http_info(self, **kwargs):  # noqa: E501
+        """Get Mail  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        Get email  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_email_with_http_info(email=email_value, password=password_value, folder=folder_value, timeout=timeout_value, async_req=True)
+        >>> result = thread.get()
 
-            Returns:
-                bool, date, datetime, dict, float, int, list, str, none_type
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['email'] = \
-                email
-            kwargs['password'] = \
-                password
-            kwargs['folder'] = \
-                folder
-            kwargs['timeout'] = \
-                timeout
-            return self.call_with_http_info(**kwargs)
+        :param async_req bool: execute request asynchronously
+        :param str email: (required)
+        :param str password: (required)
+        :param str folder: (required)
+        :param int timeout: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(object, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
 
-        self.get_email = Endpoint(
-            settings={
-                'response_type': (bool, date, datetime, dict, float, int, list, str, none_type,),
-                'auth': [],
-                'endpoint_path': '/api/v1/email/mail/{email}/{password}/{folder}/{timeout}',
-                'operation_id': 'get_email',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'email',
-                    'password',
-                    'folder',
-                    'timeout',
-                ],
-                'required': [
-                    'email',
-                    'password',
-                    'folder',
-                    'timeout',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'email':
-                        (str,),
-                    'password':
-                        (str,),
-                    'folder':
-                        (str,),
-                    'timeout':
-                        (int,),
-                },
-                'attribute_map': {
-                    'email': 'email',
-                    'password': 'password',
-                    'folder': 'folder',
-                    'timeout': 'timeout',
-                },
-                'location_map': {
-                    'email': 'path',
-                    'password': 'path',
-                    'folder': 'path',
-                    'timeout': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_email
+        local_var_params = locals()
+
+        all_params = [
+            'email',
+            'password',
+            'folder',
+            'timeout'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_inbox_folders(
-            self,
-            email,
-            password,
-            **kwargs
-        ):
-            """Get Folders  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_email" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'email' is set
+        if self.api_client.client_side_validation and ('email' not in local_var_params or  # noqa: E501
+                                                        local_var_params['email'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `email` when calling `get_email`")  # noqa: E501
+        # verify the required parameter 'password' is set
+        if self.api_client.client_side_validation and ('password' not in local_var_params or  # noqa: E501
+                                                        local_var_params['password'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `password` when calling `get_email`")  # noqa: E501
+        # verify the required parameter 'folder' is set
+        if self.api_client.client_side_validation and ('folder' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder` when calling `get_email`")  # noqa: E501
+        # verify the required parameter 'timeout' is set
+        if self.api_client.client_side_validation and ('timeout' not in local_var_params or  # noqa: E501
+                                                        local_var_params['timeout'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `timeout` when calling `get_email`")  # noqa: E501
 
-            Get inbox folders  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_inbox_folders(email, password, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'email' in local_var_params:
+            path_params['email'] = local_var_params['email']  # noqa: E501
+        if 'password' in local_var_params:
+            path_params['password'] = local_var_params['password']  # noqa: E501
+        if 'folder' in local_var_params:
+            path_params['folder'] = local_var_params['folder']  # noqa: E501
+        if 'timeout' in local_var_params:
+            path_params['timeout'] = local_var_params['timeout']  # noqa: E501
 
-            Args:
-                email (str):
-                password (str):
+        query_params = []
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                bool, date, datetime, dict, float, int, list, str, none_type
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['email'] = \
-                email
-            kwargs['password'] = \
-                password
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_inbox_folders = Endpoint(
-            settings={
-                'response_type': (bool, date, datetime, dict, float, int, list, str, none_type,),
-                'auth': [],
-                'endpoint_path': '/api/v1/email/folders/{email}/{password}',
-                'operation_id': 'get_inbox_folders',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'email',
-                    'password',
-                ],
-                'required': [
-                    'email',
-                    'password',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'email':
-                        (str,),
-                    'password':
-                        (str,),
-                },
-                'attribute_map': {
-                    'email': 'email',
-                    'password': 'password',
-                },
-                'location_map': {
-                    'email': 'path',
-                    'password': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_inbox_folders
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/api/v1/email/mail/{email}/{password}/{folder}/{timeout}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_inbox_folders(self, **kwargs):  # noqa: E501
+        """Get Folders  # noqa: E501
+
+        Get inbox folders  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_inbox_folders(email=email_value, password=password_value, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str email: (required)
+        :param str password: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_inbox_folders_with_http_info(**kwargs)  # noqa: E501
+
+    def get_inbox_folders_with_http_info(self, **kwargs):  # noqa: E501
+        """Get Folders  # noqa: E501
+
+        Get inbox folders  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_inbox_folders_with_http_info(email=email_value, password=password_value, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str email: (required)
+        :param str password: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(object, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'email',
+            'password'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_unseen(
-            self,
-            email,
-            password,
-            limit,
-            **kwargs
-        ):
-            """Get Unseen  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_inbox_folders" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'email' is set
+        if self.api_client.client_side_validation and ('email' not in local_var_params or  # noqa: E501
+                                                        local_var_params['email'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `email` when calling `get_inbox_folders`")  # noqa: E501
+        # verify the required parameter 'password' is set
+        if self.api_client.client_side_validation and ('password' not in local_var_params or  # noqa: E501
+                                                        local_var_params['password'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `password` when calling `get_inbox_folders`")  # noqa: E501
 
-            Get unseen email  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_unseen(email, password, limit, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'email' in local_var_params:
+            path_params['email'] = local_var_params['email']  # noqa: E501
+        if 'password' in local_var_params:
+            path_params['password'] = local_var_params['password']  # noqa: E501
 
-            Args:
-                email (str):
-                password (str):
-                limit (int):
+        query_params = []
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                bool, date, datetime, dict, float, int, list, str, none_type
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['email'] = \
-                email
-            kwargs['password'] = \
-                password
-            kwargs['limit'] = \
-                limit
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_unseen = Endpoint(
-            settings={
-                'response_type': (bool, date, datetime, dict, float, int, list, str, none_type,),
-                'auth': [],
-                'endpoint_path': '/api/v1/email/unseen/{email}/{password}/{limit}',
-                'operation_id': 'get_unseen',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'email',
-                    'password',
-                    'limit',
-                ],
-                'required': [
-                    'email',
-                    'password',
-                    'limit',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'email':
-                        (str,),
-                    'password':
-                        (str,),
-                    'limit':
-                        (int,),
-                },
-                'attribute_map': {
-                    'email': 'email',
-                    'password': 'password',
-                    'limit': 'limit',
-                },
-                'location_map': {
-                    'email': 'path',
-                    'password': 'path',
-                    'limit': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_unseen
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/api/v1/email/folders/{email}/{password}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_unseen(self, **kwargs):  # noqa: E501
+        """Get Unseen  # noqa: E501
+
+        Get unseen email  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_unseen(email=email_value, password=password_value, limit=limit_value, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str email: (required)
+        :param str password: (required)
+        :param int limit: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: object
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_unseen_with_http_info(**kwargs)  # noqa: E501
+
+    def get_unseen_with_http_info(self, **kwargs):  # noqa: E501
+        """Get Unseen  # noqa: E501
+
+        Get unseen email  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_unseen_with_http_info(email=email_value, password=password_value, limit=limit_value, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str email: (required)
+        :param str password: (required)
+        :param int limit: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(object, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'email',
+            'password',
+            'limit'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_unseen" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'email' is set
+        if self.api_client.client_side_validation and ('email' not in local_var_params or  # noqa: E501
+                                                        local_var_params['email'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `email` when calling `get_unseen`")  # noqa: E501
+        # verify the required parameter 'password' is set
+        if self.api_client.client_side_validation and ('password' not in local_var_params or  # noqa: E501
+                                                        local_var_params['password'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `password` when calling `get_unseen`")  # noqa: E501
+        # verify the required parameter 'limit' is set
+        if self.api_client.client_side_validation and ('limit' not in local_var_params or  # noqa: E501
+                                                        local_var_params['limit'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `limit` when calling `get_unseen`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'email' in local_var_params:
+            path_params['email'] = local_var_params['email']  # noqa: E501
+        if 'password' in local_var_params:
+            path_params['password'] = local_var_params['password']  # noqa: E501
+        if 'limit' in local_var_params:
+            path_params['limit'] = local_var_params['limit']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = []  # noqa: E501
+
+        return self.api_client.call_api(
+            '/api/v1/email/unseen/{email}/{password}/{limit}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='object',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)

@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_job_result**](JobsApi.md#get_job_result) | **GET** /api/v1.0/job/{job_id} | Get Job Result
+[**get_job_result**](JobsApi.md#get_job_result) | **GET** /api/v1/job/{job_id} | Get Job Result
 
 
 # **get_job_result**

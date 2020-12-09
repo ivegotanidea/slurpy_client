@@ -4,9 +4,9 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_inbox**](InboxApi.md#create_inbox) | **POST** /api/v1.0/inbox/{email}/{password} | Create Inbox
-[**create_random_inbox**](InboxApi.md#create_random_inbox) | **POST** /api/v1.0/inbox/ | Create Random Inbox
-[**get_inboxes_list**](InboxApi.md#get_inboxes_list) | **GET** /api/v1.0/inbox/inboxes | Get Inboxes
+[**create_inbox**](InboxApi.md#create_inbox) | **POST** /api/v1/inbox/{email}/{password} | Create Inbox
+[**create_random_inbox**](InboxApi.md#create_random_inbox) | **POST** /api/v1/inbox/ | Create Random Inbox
+[**get_inboxes_list**](InboxApi.md#get_inboxes_list) | **GET** /api/v1/inbox/inboxes | Get Inboxes
 
 
 # **create_inbox**

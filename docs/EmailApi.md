@@ -4,9 +4,9 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_email**](EmailApi.md#get_email) | **GET** /api/v1.0/email/mail/{email}/{password}/{folder}/{timeout} | Get Mail
-[**get_inbox_folders**](EmailApi.md#get_inbox_folders) | **GET** /api/v1.0/email/folders/{email}/{password} | Get Folders
-[**get_unseen**](EmailApi.md#get_unseen) | **GET** /api/v1.0/email/unseen/{email}/{password}/{limit} | Get Unseen
+[**get_email**](EmailApi.md#get_email) | **GET** /api/v1/email/mail/{email}/{password}/{folder}/{timeout} | Get Mail
+[**get_inbox_folders**](EmailApi.md#get_inbox_folders) | **GET** /api/v1/email/folders/{email}/{password} | Get Folders
+[**get_unseen**](EmailApi.md#get_unseen) | **GET** /api/v1/email/unseen/{email}/{password}/{limit} | Get Unseen
 
 
 # **get_email**
